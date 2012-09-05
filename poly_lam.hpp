@@ -25,7 +25,7 @@ struct all_the_other_details {
 	namespace poly_lam_details { \
 	template <typename T0, typename T1> \
 	struct just_the_lambda_itself_ ## name { \
-		typedef typeof( [](T0 t0,T1 t1) { lambda_text } ) lambda_type; \
+		typedef typeof( [](const T0 & t0,const T1 & t1) { cout << "in the lambda" << endl; lambda_text } ) lambda_type; \
 	}; \
 	} /* namespace poly_lam_details */ \
 	template <typename T0, typename T1> \
