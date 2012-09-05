@@ -1,7 +1,6 @@
 #include<iostream>
 using namespace std;
 #include "poly_lam.hpp"
-using namespace poly_lam;
 
 POLY_LAM_FIRST( add, x, y, return x+y; );
 POLY_LAM_FIRST( sub, w, z, return w-z; );
