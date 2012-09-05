@@ -14,7 +14,8 @@ template <typename Ret, typename Class, typename ...Args> struct get_the_return_
 	auto name(T0 t0, T1 t1) -> typename all_the_other_details<T0,T1, just_the_lambda_itself_ ## name<T0,T1> > :: return_type \
 	{ \
 		return all_the_other_details<T0,T1, just_the_lambda_itself_ ## name<T0,T1> > :: execute(t0, t1); \
-	}
+	} \
+	struct dummy_struct_to_take_the_semicolon ## name {}
 
 template <typename T0, typename T1>
 struct just_the_lambda_itself {
