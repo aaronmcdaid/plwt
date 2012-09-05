@@ -22,16 +22,15 @@ struct all_the_other_details {
 } // namespace poly_lam
 
 #define POLY_LAM_FIRST( name, t0, t1, lambda_text )  \
-	namespace poly_lam_details { \
+	template <typename T0, typename T1> \
+	struct just_the_lambda_itself_ ## name; \
+	template <typename T0, typename T1> \
+	static auto name(T0 && t0, T1 && t1) -> typename poly_lam :: all_the_other_details<T0,T1,  just_the_lambda_itself_ ## name<T0,T1> > :: return_type \
+	{ \
+		return  poly_lam ::all_the_other_details<T0,T1,  just_the_lambda_itself_ ## name<T0,T1> > :: execute(std::forward<T0>(t0), std::forward<T1>(t1)); \
+	} \
 	template <typename T0, typename T1> \
 	struct just_the_lambda_itself_ ## name { \
 		/* don't ask my why, but typeof work here where decltype doesn't. I suppose that ties me to g++ for now. */ \
 		typedef typeof( [](const T0 & t0,const T1 & t1) { lambda_text } ) lambda_type; \
-	}; \
-	} /* namespace poly_lam_details */ \
-	template <typename T0, typename T1> \
-	static auto name(T0 && t0, T1 && t1) -> typename poly_lam :: all_the_other_details<T0,T1,  poly_lam_details ::just_the_lambda_itself_ ## name<T0,T1> > :: return_type \
-	{ \
-		return  poly_lam ::all_the_other_details<T0,T1,  poly_lam_details ::just_the_lambda_itself_ ## name<T0,T1> > :: execute(std::forward<T0>(t0), std::forward<T1>(t1)); \
-	} \
-	struct dummy_struct_to_take_the_semicolon ## name {}
+	}
