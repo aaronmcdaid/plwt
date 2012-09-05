@@ -21,6 +21,8 @@ struct all_the_other_details {
 
 } // namespace poly_lam
 
+#define POLY_BODY(lambda_text) { lambda_text } ) lambda_type ; }
+
 #define POLY_LAM_FIRST( name, t0, t1, lambda_text )  \
 	template <typename T0, typename T1> \
 	struct just_the_lambda_itself_ ## name; \
@@ -32,5 +34,4 @@ struct all_the_other_details {
 	template <typename T0, typename T1> \
 	struct just_the_lambda_itself_ ## name { \
 		/* don't ask my why, but typeof work here where decltype doesn't. I suppose that ties me to g++ for now. */ \
-		typedef typeof( [](const T0 & t0,const T1 & t1) { lambda_text } ) lambda_type; \
-	}
+		typedef typeof( [](const T0 & t0,const T1 & t1) POLY_BODY(lambda_text)
