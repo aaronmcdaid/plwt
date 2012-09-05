@@ -15,7 +15,7 @@ struct all_the_other_details {
 	template<typename TT0, typename TT1> // for perfect forwarding
 	static return_type execute(TT0 && t0, TT1 && t1) {
 		static lambda_type * const l_ptr = nullptr;
-		return (*l_ptr)( std :: forward<TT0>(t0), std :: forward<TT1>(t1) );
+		return (*l_ptr)( std :: forward<TT0>(t0), std :: forward<TT1>(t1) ); // dereferencing a null pointer. Please don't tell anyone :-)
 	}
 };
 
@@ -25,6 +25,7 @@ struct all_the_other_details {
 	namespace poly_lam_details { \
 	template <typename T0, typename T1> \
 	struct just_the_lambda_itself_ ## name { \
+		/* don't ask my why, but typeof work here where decltype doesn't. I suppose that ties me to g++ for now. */ \
 		typedef typeof( [](const T0 & t0,const T1 & t1) { lambda_text } ) lambda_type; \
 	}; \
 	} /* namespace poly_lam_details */ \
