@@ -17,11 +17,6 @@ template <typename Ret, typename Class, typename ...Args> struct get_the_return_
 	} \
 	struct dummy_struct_to_take_the_semicolon ## name {}
 
-template <typename T0, typename T1>
-struct just_the_lambda_itself {
-	typedef typeof( [](T0 x,T1 y){ return x+y;} ) lambda_type;
-};
-
 template <typename T0, typename T1, typename TheLambdaType >
 struct all_the_other_details {
 	typedef typename TheLambdaType :: lambda_type lambda_type;
