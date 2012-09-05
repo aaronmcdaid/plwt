@@ -12,9 +12,10 @@ struct all_the_other_details {
 	typedef decltype( &lambda_type :: operator())  fptr_t;
 	typedef get_the_return_type<fptr_t> x;
 	typedef typename get_the_return_type<fptr_t> :: return_type return_type;
-	static return_type execute(T0 t0, T1 t1) {
+	template<typename TT0, typename TT1> // for perfect forwarding
+	static return_type execute(TT0 && t0, TT1 && t1) {
 		static lambda_type * const l_ptr = nullptr;
-		return (*l_ptr)(t0, t1);
+		return (*l_ptr)( std :: forward<TT0>(t0), std :: forward<TT1>(t1) );
 	}
 };
 
@@ -28,8 +29,8 @@ struct all_the_other_details {
 	}; \
 	} /* namespace poly_lam_details */ \
 	template <typename T0, typename T1> \
-	static auto name(T0 t0, T1 t1) -> typename poly_lam :: all_the_other_details<T0,T1,  poly_lam_details ::just_the_lambda_itself_ ## name<T0,T1> > :: return_type \
+	static auto name(T0 && t0, T1 && t1) -> typename poly_lam :: all_the_other_details<T0,T1,  poly_lam_details ::just_the_lambda_itself_ ## name<T0,T1> > :: return_type \
 	{ \
-		return  poly_lam ::all_the_other_details<T0,T1,  poly_lam_details ::just_the_lambda_itself_ ## name<T0,T1> > :: execute(t0, t1); \
+		return  poly_lam ::all_the_other_details<T0,T1,  poly_lam_details ::just_the_lambda_itself_ ## name<T0,T1> > :: execute(std::forward<T0>(t0), std::forward<T1>(t1)); \
 	} \
 	struct dummy_struct_to_take_the_semicolon ## name {}
