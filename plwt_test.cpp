@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-#include "poly_lam.hpp"
+#include "plwt.hpp"
 
 namespace x{
 PLWT( add, x, y )( return x+y; );
