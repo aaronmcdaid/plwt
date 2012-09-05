@@ -3,8 +3,8 @@ using namespace std;
 #include "poly_lam.hpp"
 
 namespace x{
-POLY_LAM_FIRST( add, x, y, return x+y; );
-POLY_LAM_FIRST( sub, w, z, return w-z; );
+PLWT( add, x, y )( return x+y; );
+PLWT( sub, w, z )( return w-z; );
 }
 
 struct Noisy {
