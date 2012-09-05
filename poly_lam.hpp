@@ -8,7 +8,7 @@ template <typename Ret, typename Class, typename ...Args> struct get_the_return_
 #define POLY_LAM_FIRST( name, t0, t1, lambda_text )  \
 	template <typename T0, typename T1> \
 	struct just_the_lambda_itself_ ## name { \
-		typedef typeof( [](T0 x,T1 y){ return x+y;} ) lambda_type; \
+		typedef typeof( [](T0 t0,T1 t1) { lambda_text } ) lambda_type; \
 	}; \
 	template <typename T0, typename T1> \
 	auto name(T0 t0, T1 t1) -> typename all_the_other_details<T0,T1, just_the_lambda_itself_ ## name<T0,T1> > :: return_type \
