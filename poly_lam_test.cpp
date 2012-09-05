@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
-
 #include "poly_lam.hpp"
+using namespace poly_lam;
 
 int main() {
 	cout << pol(3,4) << endl;

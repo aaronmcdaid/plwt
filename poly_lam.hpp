@@ -1,3 +1,4 @@
+namespace poly_lam {
 template <typename X> struct get_the_return_type;
 template <typename Ret, typename Class, typename ...Args> struct get_the_return_type< Ret (Class::*) (Args...)                > { typedef Ret return_type; };
 template <typename Ret, typename Class, typename ...Args> struct get_the_return_type< Ret (Class::*) (Args...) const          > { typedef Ret return_type; };
@@ -20,4 +21,5 @@ template <typename T0, typename T1>
 auto pol(T0 t0, T1 t1) -> typename poly_lam_struct<T0,T1> :: return_type
 {
 	return poly_lam_struct<T0,T1> :: execute(t0, t1);
+}
 }
